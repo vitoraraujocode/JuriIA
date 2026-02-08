@@ -8,9 +8,10 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib import auth
+from django.urls import reverse
 from .models import Cliente
 from django.contrib.auth.decorators import login_required
-
+from .models import Cliente, Documentos
 
 def cadastro(request):
     if request.method == 'GET':
@@ -80,3 +81,25 @@ def clientes(request):
         
         messages.add_message(request, constants.SUCCESS, 'Cliente cadastrado com sucesso!')
         return redirect('clientes')
+    
+
+
+def cliente(request, id):
+    cliente = Cliente.objects.get(id=id)
+    if request.method == 'GET':
+        documentos = Documentos.objects.filter(cliente=cliente)
+        return render(request, 'cliente.html', {'cliente': cliente, 'documentos': documentos})
+    elif request.method == 'POST':
+        tipo = request.POST.get('tipo')
+        documento = request.FILES.get('documento')
+        data = request.POST.get('data')
+        
+        documentos = Documentos(
+            cliente=cliente,
+            tipo=tipo,
+            arquivo=documento,
+            data_upload=data
+        )
+        documentos.save()
+
+        return redirect(reverse('cliente', kwargs={'id': cliente.id}))

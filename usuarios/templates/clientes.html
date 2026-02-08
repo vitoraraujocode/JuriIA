@@ -85,7 +85,7 @@
         <tbody>
         {% for cliente in clientes %}
           <tr class="bg-[#f9fafc] rounded-xl">
-            <td class="p-4 font-medium"><a href="#">{{ cliente.nome }}</a></td>
+            <td class="p-4 font-medium"><a href="{% url 'cliente' cliente.id %}">{{ cliente.nome }}</a></td>
             <td class="text-center">{{ cliente.email }}</td>
             <td class="text-center">{{ cliente.get_tipo_display }}</td>
             <td class="text-center">
