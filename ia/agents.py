@@ -9,6 +9,7 @@ from agno.tools import tool
 from agno.vectordb.lancedb import LanceDb
 
 
+
 @tool
 def search_datajud_api(cls, tribunal: TribunalLiteral, process_number: str) -> str:
     """
@@ -52,7 +53,7 @@ def search_datajud_api(cls, tribunal: TribunalLiteral, process_number: str) -> s
 
 
 
-class JuriAI:
+class JuriAi:
 
     DATAJUD_BASE_URL = "https://api-publica.datajud.cnj.jus.br"
     DATAJUD_API_KEY = "cDZHYzlZa0JadVREZDJCendQbXY6SkJlTzNjLV9TRENyQk1RdnFKZGRQdw=="
